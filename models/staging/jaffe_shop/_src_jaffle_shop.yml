@@ -5,4 +5,12 @@ sources:
     tables:
       - name: customers
       - name: orders
-      - name: customer_orders
+        config:
+          freshness:
+            warn_after:
+              count: 24
+              period: days
+            error_after:
+              count: 48
+              period: days
+          loaded_at_field: updated_at
