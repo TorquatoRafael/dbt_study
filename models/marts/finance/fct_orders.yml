@@ -8,6 +8,7 @@ models:
         description: "Unique identifier of the order."
         tests:
           - not_null
+          - unique
       - name: customer_id
         description: "Identifier of the customer who placed the order."
         tests:
