@@ -1,0 +1,84 @@
+---
+description: Project-specific dbt conventions for jaffle_shop (dbt-learn-gt-init)
+globs: models/**/*
+alwaysApply: false
+---
+
+# Project Rules – `dbt-learn-gt-init` (jaffle_shop)
+
+These rules apply when working on this dbt project and its models, tests, and docs.
+
+## Layers & naming (Medallion-style)
+
+- **layers**
+  - Treat:
+    - `staging/` as the **Silver** layer for cleaned, conformed raw data.
+    - `intermediate/` as a **transform/semantic** layer for reusable transformations between staging and marts.
+    - `marts/` as the **Gold** layer with business-ready facts and dimensions.
+
+- **naming conventions**
+  - Use `stg_` prefix for staging models (e.g. `stg_jaffle_shop__orders`, `stg_stripe__payments`).
+  - Use `dim_` prefix for dimension models (e.g. `dim_customers`).
+  - Use `fct_` prefix for fact models (e.g. `fct_orders`).
+  - Place marketing/finance/business-domain marts under appropriate subfolders of `models/marts/` (for example `marts/marketing/`, `marts/finance/`).
+
+- **sources**
+  - When modeling from raw data, use `{{ source() }}` with the appropriate source name (for example `{{ source('jaffle_shop', 'customers') }}`, `{{ source('jaffle_shop', 'orders') }}`, `{{ source('stripe', 'payments') }}`).
+  - Ensure any new `source()` usage has a corresponding YAML source definition under the correct `staging` area for the project (`jaffle_shop` or `stripe`).
+
+## Rules for recurring dbt tasks
+
+- **refatorar modelos existentes**
+  - Replace hardcoded database/schema table references with `{{ ref('...') }}` or `{{ source('...', '...') }}` according to layer boundaries.
+  - Break complex queries into well-named CTEs for each logical step (cleaning, deduplication, joins, aggregations).
+  - Ensure staging models stay close to source structure plus light cleaning; move business logic to `intermediate` or `marts`.
+
+- **criar/ajustar modelos de dimensão (`dim_`)**
+  - Declare the **grain** explicitly (for example, `1 row per customer` in `dim_customers`).
+  - Prefer surrogate keys when appropriate, but keep and document natural keys (e.g. `customer_id`) clearly.
+  - Use dbt tests such as:
+    - `unique` + `not_null` on surrogate/natural keys.
+    - `relationships` from facts back to referenced dimensions where applicable.
+
+- **criar/ajustar modelos de fato (`fct_`)**
+  - Declare the **grain** explicitly (for example, `1 row per order` in `fct_orders`).
+  - Use stable, tested keys to join to dimensions (`customer_id`, product keys, etc.).
+  - Add dbt tests such as:
+    - `not_null` and `unique` on fact primary keys.
+    - `relationships` for foreign keys back to dimensions and staging where relevant.
+
+- **testes dbt mínimos**
+  - For any new core model (staging, intermediate, mart), add at least:
+    - `not_null` and `unique` on primary business keys where appropriate.
+    - `relationships` between facts and dimensions on key columns.
+    - Additional tests (accepted values, conditional not_null) when they encode real business rules.
+
+- **documentação YAML**
+  - For each new or modified model, add or update a YAML entry with:
+    - A model description in terms of **business meaning** and grain.
+    - Column descriptions that explain what the field means to the business (not just technical source aliases).
+  - Use existing files such as `models/marts/marketing/dim_customers.yml` as style reference.
+
+## Prompt patterns for working in this project
+
+You can use these prompts with the Cursor agent to apply the rules above consistently:
+
+- **Revisar modelo existente**
+  - “Seguindo minhas Rules de dbt e modelagem, revisa o modelo `{{ model_name }}` e aponta apenas problemas reais de modelagem, performance ou data quality (hardcoded tables, `source` faltando, `ref` quebrado, grain inconsistente, testes ausentes).”
+
+- **Refatorar modelo para boas práticas**
+  - “Refatora o modelo `{{ model_name }}` para seguir minhas Rules (CTEs, `ref()`/`source()`, camadas Medallion, naming `stg_`/`dim_`/`fct_`) e sugere os testes dbt mínimos necessários.”
+
+- **Propor nova fact/dim**
+  - “Usando minhas Rules, propõe a modelagem de uma nova `fct_`/`dim_` para o caso de uso X, explicando grain, chaves naturais, surrogate keys e testes dbt recomendados.”
+
+- **Focar em performance**
+  - “Analisando o modelo `{{ model_name }}`, sugere melhorias de performance (joins, filtros, janelas, materialização) respeitando as camadas e convenções deste projeto.”
+
+## Revisão e melhoria contínua das Rules
+
+- Depois de alguns dias usando este projeto:
+  - Ajuste o nível de detalhe (mais sucinto ou mais explicativo) conforme a utilidade das respostas.
+  - Inclua novas convenções específicas que perceber que são recorrentes (por exemplo, nomes de schemas externos, políticas de SCD).
+  - Remova ou simplifique qualquer instrução que esteja gerando respostas pouco úteis ou muito verbosas.
+

@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer dimension with first/most recent order dates and aggregate order behavior metrics."
+    columns:
+      - name: customer_id
+        description: "Unique identifier of the customer."
+        tests:
+          - not_null
+          - unique
+      - name: first_name
+        description: "Customer first name from the source system."
+      - name: last_name
+        description: "Customer last name from the source system."
+      - name: first_order_date
+        description: "Date of the customer’s first recorded order."
+      - name: most_recent_order_date
+        description: "Date of the customer’s most recent recorded order."
+      - name: number_of_orders
+        description: "Total number of orders placed by the customer."
+        tests:
+          - not_null
+      - name: lifetime_value
+        description: "Total order amount across the customer’s lifetime."

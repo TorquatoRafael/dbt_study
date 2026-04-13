@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: "Fact table of customer orders, one row per order, with amounts based on successful payment events."
+    columns:
+      - name: order_id
+        description: "Unique identifier of the order."
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: "Identifier of the customer who placed the order."
+        tests:
+          - not_null
+      - name: order_date
+        description: "Date when the order was placed."
+      - name: amount
+        description: "Total successfully paid amount for the order in the payment currency."
+        tests:
+          - not_null
