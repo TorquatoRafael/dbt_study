@@ -1,0 +1,78 @@
+==================== 2026-03-25T18:11:06.930361Z | 019d2631-6e2e-77c2-89a9-07b9adeca847 ====================
+18:11:06.930452 [info ]: Installing dbt project and profile setup
+18:11:06.974972 [info ]: Info Created .vscode/extensions.json with dbt extension recommendation
+18:11:06.975381 [info ]: Success Project created successfully!
+18:11:06.975581 [info ]: Info Project name: jaffle_shop
+18:11:06.975751 [info ]: Info Project directory: jaffle_shop
+18:11:06.975913 [info ]: Info Setting up your profile...
+18:11:06.976414 [info ]: Loading ~/.dbt/profiles.yml
+18:11:06.976916 [info ]: Info Creating new profile...
+18:11:08.007842 [info ]: No dbt_cloud.yml found - proceeding without cloud pre-population
+18:14:14.559205 [info ]: Success Profile written to C:\Users\rafael.torquato_indi\.dbt\profiles.yml
+18:14:14.559502 [info ]: Validating profile inputs, adapters, and connection
+
+18:14:14.559901 [info ]: dbt-fusion 2.0.0-preview.92
+18:14:14.560411 [info ]: Started loading project
+18:14:14.563423 [info ]: Loading ~/.dbt/profiles.yml
+18:14:14.564726 [info ]: Finished loading project [  0.00s]
+18:14:14.565059 [info ]: Started debugging
+18:14:14.565197 [info ]: Debugging profile: dev
+18:14:14.565437 [info ]: Debugging dbt version: 2.0.0-preview.92
+18:14:14.565686 [info ]: Debugging platform: windows x86_64 (windows)
+18:14:14.565873 [info ]: Debugging adapter type: snowflake (remote)
+18:14:14.610878 [info ]: Debugging dependencies:
+  git: OK
+18:14:14.611273 [info ]: Debugging connection:
+  "account": "JEMKZGC-ZM19839",
+  "user": "torquato",
+  "database": "dbt",
+  "warehouse": "compute_wh",
+  "schema": "dbt_rtorquato",
+  "role": "ACCOUNTADMIN"
+18:14:15.512007 [info ]: Finished debugging [  0.95s]
+18:14:15.512966 [error]: dbt1011: [Snowflake] 390100 (08004): Incorrect username or password was specified.
+18:14:15.960726 [info ]: New version available 2.0.0-preview.154 (run `dbt system update`)
+18:14:16.383153 [info ]: 
+==================== Execution Summary =====================
+Finished 'init' with 1 error for target 'dev' [3m 9s]
+==================== 2026-03-25T18:14:21.890534Z | 019d2634-67bf-78c3-a83d-874d49fa57e2 ====================
+18:14:21.890630 [info ]: Installing dbt project and profile setup
+18:14:21.892848 [info ]: Warning Directory 'jaffle_shop' already exists, using 'jaffle_shop_1' instead
+18:14:21.930287 [info ]: Info Created .vscode/extensions.json with dbt extension recommendation
+18:14:21.930639 [info ]: Success Project created successfully!
+18:14:21.930788 [info ]: Info Project name: jaffle_shop_1
+18:14:21.930961 [info ]: Info Project directory: jaffle_shop_1
+18:14:21.931151 [info ]: Info Setting up your profile...
+18:14:21.932116 [info ]: Loading ~/.dbt/profiles.yml
+18:14:21.932812 [info ]: Info Creating new profile...
+18:14:23.823300 [info ]: No dbt_cloud.yml found - proceeding without cloud pre-population
+18:15:12.905735 [info ]: Success Profile written to C:\Users\rafael.torquato_indi\.dbt\profiles.yml
+18:15:12.906187 [info ]: Validating profile inputs, adapters, and connection
+
+18:15:12.906543 [info ]: dbt-fusion 2.0.0-preview.92
+18:15:12.907038 [info ]: Started loading project
+18:15:12.909521 [info ]: Loading ~/.dbt/profiles.yml
+18:15:12.910725 [info ]: Finished loading project [  0.00s]
+18:15:12.911038 [info ]: Started debugging
+18:15:12.911408 [info ]: Debugging profile: dev
+18:15:12.911607 [info ]: Debugging dbt version: 2.0.0-preview.92
+18:15:12.911734 [info ]: Debugging platform: windows x86_64 (windows)
+18:15:12.911881 [info ]: Debugging adapter type: snowflake (remote)
+18:15:12.947708 [info ]: Debugging dependencies:
+  git: OK
+18:15:12.948213 [info ]: Debugging connection:
+  "account": "JEMKZGC-ZM19839",
+  "user": "torquato",
+  "database": "dbt",
+  "warehouse": "compute_wh",
+  "schema": "dbt_rtorquato",
+  "role": "ACCOUNTADMIN"
+18:15:14.205746 [debug]: Query executed on node unknown:
+select 1 as id
+18:15:14.253622 [info ]: Debugging connection test: OK
+18:15:14.254608 [info ]: Debugged All checks passed!
+18:15:14.254952 [info ]: Finished debugging [  1.34s]
+18:15:14.710230 [info ]: New version available 2.0.0-preview.154 (run `dbt system update`)
+18:15:14.862146 [info ]: 
+==================== Execution Summary =====================
+Finished 'init' successfully for target 'dev' [53.0s]
